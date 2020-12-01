@@ -48,6 +48,8 @@ export class AppComponent {
   }
 
   selectUser(user){
+     this.posts = [];
+     this.comments = [];
      this.selecteduser = user;
      this.getPosts();
   }
@@ -61,6 +63,7 @@ export class AppComponent {
   }
 
   getComments(post) {
+    this.comments = [];
     this.githubService.getComments().subscribe( (data) => {
       this.comments = data.filter ( c => c.postId === post.id);
 });
