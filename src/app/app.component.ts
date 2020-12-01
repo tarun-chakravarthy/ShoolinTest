@@ -9,7 +9,11 @@ import { GithubCatalystService } from './services/github-catalyst.service';
 export class AppComponent {
   title = 'catalyst-app';
 
-  users: String[]
+  users = [];
+  selecteduser = null;
+  posts = [];
+  comments = [];
+  selectedPost = null;
 
   displayedColumns: string[] = [
     'Name',
@@ -25,10 +29,12 @@ export class AppComponent {
 
   dataSource: any[] = [];
 
-  constructor(private githubService: GithubCatalystService) { }
+  constructor(private githubService: GithubCatalystService) { 
+    this.getUsers();
+  }
 
   getUsers() {
-    this.githubService.getData().subscribe((data) => {
+    this.githubService.getusers().subscribe((data) => {
       console.log(data)
       this.users = data;
     })
@@ -39,5 +45,24 @@ export class AppComponent {
       console.log(data)
       this.dataSource = [data];
     })
+  }
+
+  selectUser(user){
+     this.selecteduser = user;
+     this.getPosts();
+  }
+
+  getPosts() {
+    if ( this.selecteduser ) {
+      this.githubService.getPosts().subscribe( (data) => {
+            this.posts = data.filter ( p => p.userId === this.selecteduser.id);
+      });
+    }
+  }
+
+  getComments(post) {
+    this.githubService.getComments().subscribe( (data) => {
+      this.comments = data.filter ( c => c.postId === post.id);
+});
   }
 }

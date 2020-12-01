@@ -1,16 +1,29 @@
 
 <nav class="navbar navbar-expand-sm bg-light">
 
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="/description">Company Details</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/repos">Repos</a>
+  <ul class="navbar-nav" *ngIf="users">
+    <li class="nav-item" *ngFor="let u of users">
+      <button (click)="selectUser(u)"> {{ u.name }} </button> 
     </li>
   </ul>
 
 </nav>
+
+<div *ngIf="posts">
+
+  <div *ngFor="let p of posts">
+        <span (click)="getComments(p)"> {{p.title}} </span> 
+  </div>
+   
+</div>
+
+<div *ngIf="comments">
+
+  <div *ngFor="let c of comments">
+        <span> {{c.body}} </span> 
+  </div>
+   
+</div>
 
 
   <router-outlet></router-outlet>

@@ -26,4 +26,22 @@ export class GithubCatalystService {
     const url = `https://api.github.com/repos/catalyst/${repositoRyName}/contributors`
     return this.http.get(url)
   }
+
+  getusers(): Observable<any> {
+
+    const url = "https://jsonplaceholder.typicode.com/users"
+    return this.http.get(url)
+  }
+
+  getPosts(): Observable<any> {
+
+    const url = "https://jsonplaceholder.typicode.com/posts"
+    return this.http.get(url)
+  }
+
+  getComments(): Observable<any> {
+
+    const url = "https://jsonplaceholder.typicode.com/comments"
+    return this.http.get(url)
+  }
 }
