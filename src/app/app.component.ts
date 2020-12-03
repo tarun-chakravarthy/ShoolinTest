@@ -1,71 +1,56 @@
 import { Component } from '@angular/core';
-import { GithubCatalystService } from './services/github-catalyst.service';
+import { SchoolinTestService } from './services/schoolin-test.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'catalyst-app';
+  title = 'Schoolin-test';
 
   users = [];
-  selecteduser = null;
+  currentUser = '';
+  fullName = "Tarun Duggempudi";
+  firstName = '';
+  selectedUser = null;
   posts = [];
   comments = [];
   selectedPost = null;
 
-  displayedColumns: string[] = [
-    'Name',
-    'Description',
-    'GitHub URL',
-    'Is it a fork',
-    'Star Count',
-    'Watchers Count',
-    'License',
-    'Language',
-    'Top 5 contributors'
-  ];
-
   dataSource: any[] = [];
 
-  constructor(private githubService: GithubCatalystService) { 
+  constructor(private getInfo: SchoolinTestService) {
     this.getUsers();
   }
 
   getUsers() {
-    this.githubService.getusers().subscribe((data) => {
+    this.getInfo.getusers().subscribe((data) => {
       console.log(data)
       this.users = data;
+      this.users.forEach(user => { user["firstName"] = user.name.replace(/ .*/, ''); });
     })
   }
 
-  getList() {
-    this.githubService.getRepositories().subscribe((data) => {
-      console.log(data)
-      this.dataSource = [data];
-    })
-  }
-
-  selectUser(user){
-     this.posts = [];
-     this.comments = [];
-     this.selecteduser = user;
-     this.getPosts();
+  selectUser(user) {
+    this.posts = [];
+    this.comments = [];
+    this.selectedUser = user;
+    this.getPosts();
   }
 
   getPosts() {
-    if ( this.selecteduser ) {
-      this.githubService.getPosts().subscribe( (data) => {
-            this.posts = data.filter ( p => p.userId === this.selecteduser.id);
+    if (this.selectedUser) {
+      this.getInfo.getPosts().subscribe((data) => {
+        this.posts = data.filter(p => p.userId === this.selectedUser.id);
       });
     }
   }
 
   getComments(post) {
     this.comments = [];
-    this.githubService.getComments().subscribe( (data) => {
-      this.comments = data.filter ( c => c.postId === post.id);
-});
+    this.getInfo.getComments().subscribe((data) => {
+      this.comments = data.filter(c => c.postId === post.id);
+    });
   }
 }

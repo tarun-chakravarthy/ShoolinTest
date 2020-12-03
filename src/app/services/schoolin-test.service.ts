@@ -5,27 +5,9 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class GithubCatalystService {
+export class SchoolinTestService {
 
   constructor(private http: HttpClient) { }
-
-  getData(): Observable<any> {
-
-    const url = "https://api.github.com/orgs/catalyst"
-    return this.http.get(url)
-  }
-
-  getRepositories(): Observable<any> {
-
-    const url = "https://api.github.com/orgs/catalyst/repos"
-    return this.http.get(url)
-  }
-
-  getContributors(repositoRyName: string): Observable<any> {
-
-    const url = `https://api.github.com/repos/catalyst/${repositoRyName}/contributors`
-    return this.http.get(url)
-  }
 
   getusers(): Observable<any> {
 

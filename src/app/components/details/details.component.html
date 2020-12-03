@@ -1,9 +1,0 @@
-<ul *ngIf="users">
-    <li>Name: {{users.name}}</li>
-    <li>Description: {{users.description}}</li>
-    <li>Location: {{users.location}}</li>
-    <li>Total Number of Repositories: {{users.public_repos}}</li>
-    <li>Blog URL: <a href="{{users.blog}}">{{users.blog}} </a></li>
-    <i (click)="onNavigate(users.html_url)" class="fa fa-github" style="font-size:48px;color:red"></i>
-
-</ul>
