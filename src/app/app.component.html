@@ -21,24 +21,29 @@
       <h2 class="text">Posts from {{selectedUser.firstName}}</h2>
     </div>
 
-    <div *ngFor="let p of posts">
-      <div class="post-section">
+    <div *ngFor="let p of posts; index as i">
+      <div class="post-section" *ngIf=" !showLoadMoreButton || i === 0 || i === 1 || i === 2">
         <div class="post"> {{p.title}} </div>
         <div><button class="comment-btn" (click)="getComments(p)"><i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>
 
+    <button class="comment-btn" *ngIf="showLoadMoreButton" (click)="loadMore()">Load More</button>
+
   </div>
 
   <div *ngIf="comments">
 
-    <div class="comment-section" *ngFor="let c of comments">
+    <div class="comment-section" *ngFor="let c of comments ">
       <div class="comments"> {{c.body}} </div>
+      
     </div>
 
   </div>
 
 </div>
+
+<div *ngIf="showLoader" class="loader"></div>
 
 <router-outlet></router-outlet>
