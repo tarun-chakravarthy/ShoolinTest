@@ -1,4 +1,4 @@
-<div>
+<div class="main">
   <div class="header">
     <div class="text">
       <h2>Please Select the user to find their comments</h2>
@@ -28,8 +28,9 @@
         </div>
       </div>
     </div>
-
-    <button class="comment-btn" *ngIf="showLoadMoreButton" (click)="loadMore()">Load More</button>
+    <div>
+      <button class="user-btn load-btn" *ngIf="showLoadMoreButton" (click)="loadMore()">...Load More</button>
+    </div>
 
   </div>
 
@@ -37,13 +38,12 @@
 
     <div class="comment-section" *ngFor="let c of comments ">
       <div class="comments"> {{c.body}} </div>
-      
     </div>
 
   </div>
 
+  <div *ngIf="showLoader" class="loader"></div>
+
+  <router-outlet></router-outlet>
+
 </div>
-
-<div *ngIf="showLoader" class="loader"></div>
-
-<router-outlet></router-outlet>
